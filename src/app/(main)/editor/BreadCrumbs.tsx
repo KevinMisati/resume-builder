@@ -6,7 +6,7 @@ interface BreadCrumbsProps{
     setCurrentStep:(step:string) => void
 }
 
-const BreadCrumb = ({currentstep,setCurrentStep}:BreadCrumbsProps) => {
+const BreadCrumbs = ({currentstep,setCurrentStep}:BreadCrumbsProps) => {
   return (
     <div className='flex justify-center '>
         <Breadcrumb>
@@ -26,7 +26,7 @@ const BreadCrumb = ({currentstep,setCurrentStep}:BreadCrumbsProps) => {
                                 </BreadcrumbLink>
                             )}
                         </BreadcrumbItem>
-                        <BreadcrumbSeparator />
+                        <BreadcrumbSeparator className='last:hidden' />
                     </React.Fragment>
                 ))}
             </BreadcrumbList>
@@ -35,4 +35,4 @@ const BreadCrumb = ({currentstep,setCurrentStep}:BreadCrumbsProps) => {
   )
 }
 
-export default BreadCrumb
+export default BreadCrumbs

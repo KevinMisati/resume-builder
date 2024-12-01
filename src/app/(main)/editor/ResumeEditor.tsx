@@ -1,19 +1,25 @@
 'use client'
 
-import React from 'react'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import GeneralForm from './form/GeneralForm'
-import PersonalInfoForm from './form/PersonalInfoForm'
+import React,{useState} from 'react'
 import { useSearchParams } from 'next/navigation'
 import { steps } from './steps'
+import BreadCrumbs from './BreadCrumbs'
+import Footer from './footer'
+import { ResumeValues } from '@/lib/validation'
 
 const ResumeEditor = () => {
     const searchParams = useSearchParams()
+    const [resumeData,setResumeData] = useState<ResumeValues>({})
     const currentstep = searchParams.get("step") || steps[0].key
     const setStep = (key:string) => {
         const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set("step",key)
+        window.history.pushState(null,"",`?${newSearchParams.toString()}`)
     }
+
+const FormComponent = steps.find(
+    step => step.key == currentstep
+)?.component
   return (
     <div className='flex grow flex-col'>
         <header className='space-y-1.5 border-b px-3 py-5 text-center'>
@@ -27,30 +33,24 @@ const ResumeEditor = () => {
         <main className='relative grow'>
             <div className='absolute bottom-0 top-0 flex w-full'>
                 <div className='w-full p-3 md:w-1/2 overflow-y-auto'>
-                    <PersonalInfoForm />
+                <BreadCrumbs currentstep={currentstep} setCurrentStep={setStep} />
+                {FormComponent && <FormComponent 
+                    resumeData={resumeData}
+                    setResumeData={setResumeData}
+                />}
                 </div>
                 <div className='grow md:border-r' />
-                <div className='hidden w-1/2 md:flex'>right</div>
+                <div className='hidden w-1/2 md:flex'>
+                    <pre>
+                        {JSON.stringify(resumeData,null,2)}
+                    </pre>
+                </div>
             </div>
         </main>
-        <footer className='w-full border-t px-3 py-5'>
-            <div className='max-w-7xl mx-auto flex flex-wrap justify-between gap-3'>
-                <div className='flex items-center gap-3'>
-                    <Button variant='secondary'>
-                        Previous step
-                    </Button>
-                    <Button>
-                        Next step
-                    </Button>
-                </div>
-                <div className='flex items-start gap-3'>
-                    <Button variant='secondary' asChild>
-                        <Link href='/resumes'>Close</Link>
-                    </Button>
-                    <p className='text-muted-foreground opacity-0'>Saving...</p>
-                </div>
-            </div>
-        </footer>
+        <Footer
+            currentStep={currentstep}
+            setCurrentStep={setStep}
+        />
     </div>
   )
 }
