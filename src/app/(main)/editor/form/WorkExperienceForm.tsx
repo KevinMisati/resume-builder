@@ -30,6 +30,7 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
@@ -164,7 +165,10 @@ function WorkExperienceItem({
         isDragging && "relative z-50 cursor-grab shadow-xl",
       )}
       ref={setNodeRef}
-      
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+      }}
     >
       <div className="flex justify-between gap-2">
         <span className="font-semibold">Work experience {index + 1}</span>
