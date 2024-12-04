@@ -1,22 +1,27 @@
-import { ResumeValues } from "@/lib/validation";
-import React, { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
-import useDimensions from "@/hooks/useDimensions";
-import Image from "next/image";
-import { formatDate} from "date-fns"
-import { Badge } from "./ui/badge";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
-
+import useDimensions from "@/hooks/useDimensions";
+import { cn } from "@/lib/utils";
+import { ResumeValues } from "@/lib/validation";
+import { formatDate } from "date-fns";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
+import { Badge } from "./ui/badge";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
+  contentRef?: React.Ref<HTMLDivElement>;
   className?: string;
 }
 
-const ResumePreview = ({ resumeData, className }: ResumePreviewProps) => {
-  console.log(resumeData, "hello data 1");
+export default function ResumePreview({
+  resumeData,
+  contentRef,
+  className,
+}: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+
   const { width } = useDimensions(containerRef);
+
   return (
     <div
       className={cn(
@@ -30,8 +35,10 @@ const ResumePreview = ({ resumeData, className }: ResumePreviewProps) => {
         style={{
           zoom: (1 / 794) * width,
         }}
+        ref={contentRef}
+        id="resumePreviewContent"
       >
-        <PesonalInfoHeader resumeData={resumeData} />
+        <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
@@ -39,25 +46,34 @@ const ResumePreview = ({ resumeData, className }: ResumePreviewProps) => {
       </div>
     </div>
   );
-};
-
-export default ResumePreview;
+}
 
 interface ResumeSectionProps {
   resumeData: ResumeValues;
 }
 
-const PesonalInfoHeader = ({ resumeData }: ResumeSectionProps) => {
-  const { photo, firstName, lastName, jobTitle, country, city, phone, email, colorHex, borderstyle } =
-    resumeData;
+function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
+  const {
+    photo,
+    firstName,
+    lastName,
+    jobTitle,
+    city,
+    country,
+    phone,
+    email,
+    colorHex,
+    borderstyle,
+  } = resumeData;
+
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
+
   useEffect(() => {
     const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
     if (objectUrl) setPhotoSrc(objectUrl);
     if (photo === null) setPhotoSrc("");
     return () => URL.revokeObjectURL(objectUrl);
   }, [photo]);
-
 
   return (
     <div className="flex items-center gap-6">
@@ -69,11 +85,12 @@ const PesonalInfoHeader = ({ resumeData }: ResumeSectionProps) => {
           alt="Author photo"
           className="aspect-square object-cover"
           style={{
-            borderRadius: borderstyle === BorderStyles.SQUARE
-            ? "0px" 
-            : borderstyle === BorderStyles.CIRCLE 
-            ? "9999px"
-            :"10%"
+            borderRadius:
+              borderstyle === BorderStyles.SQUARE
+                ? "0px"
+                : borderstyle === BorderStyles.CIRCLE
+                  ? "9999px"
+                  : "10%",
           }}
         />
       )}
@@ -106,10 +123,10 @@ const PesonalInfoHeader = ({ resumeData }: ResumeSectionProps) => {
       </div>
     </div>
   );
-};
+}
 
-const SummarySection = ({ resumeData }: ResumeSectionProps) => {
-  const { summary,colorHex } = resumeData;
+function SummarySection({ resumeData }: ResumeSectionProps) {
+  const { summary, colorHex } = resumeData;
 
   if (!summary) return null;
 
@@ -128,21 +145,20 @@ const SummarySection = ({ resumeData }: ResumeSectionProps) => {
             color: colorHex,
           }}
         >
-          {" "}
           Professional profile
         </p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
     </>
   );
-};
+}
 
-const WorkExperienceSection = ({ resumeData }: ResumeSectionProps) => {
-  const { workExperiences,colorHex } = resumeData;
+function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
+  const { workExperiences, colorHex } = resumeData;
 
   const workExperiencesNotEmpty = workExperiences?.filter(
-    exp => Object.values(exp).filter(Boolean).length > 0
-  )
+    (exp) => Object.values(exp).filter(Boolean).length > 0,
+  );
 
   if (!workExperiencesNotEmpty?.length) return null;
 
@@ -154,7 +170,7 @@ const WorkExperienceSection = ({ resumeData }: ResumeSectionProps) => {
           borderColor: colorHex,
         }}
       />
-      <div className="break-inside-avoid space-y-3">
+      <div className="space-y-3">
         <p
           className="text-lg font-semibold"
           style={{
@@ -183,13 +199,12 @@ const WorkExperienceSection = ({ resumeData }: ResumeSectionProps) => {
             <div className="whitespace-pre-line text-xs">{exp.description}</div>
           </div>
         ))}
-        <div className="whitespace-pre-line text-sm"></div>
       </div>
     </>
   );
-};
+}
 
-const EducationSection = ({ resumeData }: ResumeSectionProps) => {
+function EducationSection({ resumeData }: ResumeSectionProps) {
   const { educations, colorHex } = resumeData;
 
   const educationsNotEmpty = educations?.filter(
@@ -206,7 +221,7 @@ const EducationSection = ({ resumeData }: ResumeSectionProps) => {
           borderColor: colorHex,
         }}
       />
-      <div className="break-inside-avoid space-y-3">
+      <div className="space-y-3">
         <p
           className="text-lg font-semibold"
           style={{
@@ -226,21 +241,21 @@ const EducationSection = ({ resumeData }: ResumeSectionProps) => {
               <span>{edu.degree}</span>
               {edu.startDate && (
                 <span>
-                  {`${formatDate(edu.startDate, "MM/yyyy")} ${edu.endDate ? `- ${formatDate(edu.endDate, "MM/yyyy")}` : ""}`}
+                  {edu.startDate &&
+                    `${formatDate(edu.startDate, "MM/yyyy")} ${edu.endDate ? `- ${formatDate(edu.endDate, "MM/yyyy")}` : ""}`}
                 </span>
               )}
             </div>
             <p className="text-xs font-semibold">{edu.school}</p>
           </div>
         ))}
-        <div className="whitespace-pre-line text-sm"></div>
       </div>
     </>
   );
-};
+}
 
-const SkillsSection = ({ resumeData }: ResumeSectionProps) => {
-  const { skills,colorHex, borderstyle} = resumeData;
+function SkillsSection({ resumeData }: ResumeSectionProps) {
+  const { skills, colorHex, borderstyle } = resumeData;
 
   if (!skills?.length) return null;
 
@@ -283,4 +298,4 @@ const SkillsSection = ({ resumeData }: ResumeSectionProps) => {
       </div>
     </>
   );
-};
+}

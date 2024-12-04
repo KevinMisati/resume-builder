@@ -1,20 +1,25 @@
-import ResumePreview from '@/components/ResumePreview'
-import { ResumeValues } from '@/lib/validation'
-import React from 'react'
-import ColorPicker from './ColorPicker'
-import BorderStyleButton from './BorderStyleButton'
-import { cn } from '@/lib/utils'
+import ResumePreview from "@/components/ResumePreview";
+import { cn } from "@/lib/utils";
+import { ResumeValues } from "@/lib/validation";
+import BorderStyleButton from "./BorderStyleButton";
+import ColorPicker from "./ColorPicker";
 
 interface ResumePreviewSectionProps {
-    resumeData: ResumeValues
-    setResumeData:(data:ResumeValues) => void
-    className?:string
+  resumeData: ResumeValues;
+  setResumeData: (data: ResumeValues) => void;
+  className?: string;
 }
 
-const ResumePreviewSection = ({resumeData,setResumeData,className}:ResumePreviewSectionProps) => {
+export default function ResumePreviewSection({
+  resumeData,
+  setResumeData,
+  className,
+}: ResumePreviewSectionProps) {
   return (
-    <div className={cn("group relative hidden md:w-1/2 md:flex w-full", className)}>
-      <div className="opacity-50 xl:opacity-100 group-hover:opacity-100 absolute left-1 top-1 flex flex-none flex-col gap-3 lg:left-3 lg:top-3 transition-opacity">
+    <div
+      className={cn("group relative hidden w-full md:flex md:w-1/2", className)}
+    >
+      <div className="absolute left-1 top-1 flex flex-none flex-col gap-3 opacity-50 transition-opacity group-hover:opacity-100 lg:left-3 lg:top-3 xl:opacity-100">
         <ColorPicker
           color={resumeData.colorHex}
           onChange={(color) =>
@@ -23,8 +28,8 @@ const ResumePreviewSection = ({resumeData,setResumeData,className}:ResumePreview
         />
         <BorderStyleButton
           borderStyle={resumeData.borderstyle}
-          onChange={(borderStyle) =>
-            setResumeData({ ...resumeData, borderstyle: borderStyle })
+          onChange={(borderstyle) =>
+            setResumeData({ ...resumeData, borderstyle })
           }
         />
       </div>
@@ -37,5 +42,3 @@ const ResumePreviewSection = ({resumeData,setResumeData,className}:ResumePreview
     </div>
   );
 }
-
-export default ResumePreviewSection
