@@ -16,8 +16,7 @@ const nextConfig: NextConfig = {
     ],
   },
   eslint: {
-    ignoreDuringBuilds:
-      process.env.NEXT_PUBLIC_ESLINT_IGNORE_DURING_BUILD === "true",
+    ignoreDuringBuilds:true
   },
 };
 
