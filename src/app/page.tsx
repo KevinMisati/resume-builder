@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -21,9 +22,11 @@ export default function Home() {
           <p className="mb-6 text-lg">
             Our powerful builder makes creating a stunning resume effortless.
           </p>
-          <button className="rounded bg-white px-6 py-3 font-semibold text-blue-700 shadow hover:bg-gray-100">
-            Get Started for Free
-          </button>
+          <Link href="/resumes">
+            <button className="rounded bg-white px-6 py-3 font-semibold text-blue-700 shadow hover:bg-gray-100">
+              Get Started for Free
+            </button>
+          </Link>
         </div>
       </section>
 
@@ -31,8 +34,8 @@ export default function Home() {
       <section className="px-8 py-16">
         <div className="container mx-auto text-center">
           <h2 className="mb-8 text-3xl font-bold">Why Choose Our Builder?</h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="rounded bg-gray-800 p-6 shadow">
+          <div className="flex items-center justify-center">
+            <div className="m-2 max-w-[450px] rounded bg-gray-800 p-6 shadow">
               <h3 className="mb-2 text-xl font-semibold text-white">
                 Easy to Use
               </h3>
@@ -41,16 +44,8 @@ export default function Home() {
                 without any hassle.
               </p>
             </div>
-            <div className="rounded bg-gray-800 p-6 shadow">
-              <h3 className="mb-2 text-xl font-semibold text-white">
-                Customizable Templates
-              </h3>
-              <p>
-                Choose from a variety of professional templates tailored to your
-                industry.
-              </p>
-            </div>
-            <div className="rounded bg-gray-800 p-6 shadow">
+
+            <div className="m-2 max-w-[450px] rounded bg-gray-800 p-6 shadow">
               <h3 className="mb-2 text-xl font-semibold text-white">
                 Download in One Click
               </h3>
@@ -83,7 +78,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="px-8 py-16">
+      {/* <section className="px-8 py-16">
         <div className="container mx-auto text-center">
           <h2 className="mb-8 text-3xl font-bold">What Our Users Say</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -102,20 +97,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+ */}
       {/* Footer */}
       <footer className="bg-blue-700 py-8 text-center text-white">
         <p>
           © {new Date().getFullYear()} Resume Builder. All rights reserved.
         </p>
-        <div className="mt-4">
-          <a href="#" className="px-4 text-gray-200 hover:underline">
-            Privacy Policy
-          </a>
-          <a href="#" className="px-4 text-gray-200 hover:underline">
-            Terms of Service
-          </a>
-        </div>
       </footer>
     </div>
   );
