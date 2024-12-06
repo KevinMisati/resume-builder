@@ -27,9 +27,9 @@ export default function ResumePreviewSection({
           }
         />
         <BorderStyleButton
-          borderStyle={resumeData.borderstyle}
-          onChange={(borderstyle) =>
-            setResumeData({ ...resumeData, borderstyle })
+          borderStyle={resumeData.borderStyle}
+          onChange={(borderStyle) =>
+            setResumeData({ ...resumeData, borderStyle })
           }
         />
       </div>

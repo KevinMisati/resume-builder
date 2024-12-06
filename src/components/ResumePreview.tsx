@@ -63,7 +63,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     phone,
     email,
     colorHex,
-    borderstyle,
+    borderStyle,
   } = resumeData;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
@@ -86,9 +86,9 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           className="aspect-square object-cover"
           style={{
             borderRadius:
-              borderstyle === BorderStyles.SQUARE
+              borderStyle === BorderStyles.SQUARE
                 ? "0px"
-                : borderstyle === BorderStyles.CIRCLE
+                : borderStyle === BorderStyles.CIRCLE
                   ? "9999px"
                   : "10%",
           }}
@@ -255,7 +255,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 }
 
 function SkillsSection({ resumeData }: ResumeSectionProps) {
-  const { skills, colorHex, borderstyle } = resumeData;
+  const { skills, colorHex, borderStyle } = resumeData;
 
   if (!skills?.length) return null;
 
@@ -284,9 +284,9 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
               style={{
                 backgroundColor: colorHex,
                 borderRadius:
-                  borderstyle === BorderStyles.SQUARE
+                  borderStyle === BorderStyles.SQUARE
                     ? "0px"
-                    : borderstyle === BorderStyles.CIRCLE
+                    : borderStyle === BorderStyles.CIRCLE
                       ? "9999px"
                       : "8px",
               }}
