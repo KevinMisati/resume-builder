@@ -45,7 +45,7 @@ const Page = async() => {
         <h1 className='text-3xl font-bold'>Your resumes</h1>
         <p>Total: {totalCount} </p>
       </div>
-      <div className='flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-3'>
+      <div className='flex items-center justify-center  w-full gap-3'>
         {resumes.map(resume => (
           <ResumeItem 
             key={resume.id}

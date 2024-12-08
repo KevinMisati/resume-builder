@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
+import sample1 from "@/assets/Jhon Doe.jpg";
+import sample2 from "@/assets/mary.jpg";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -63,13 +66,13 @@ export default function Home() {
         <div className="container mx-auto text-center">
           <h2 className="mb-8 text-3xl font-bold">See What You Can Create</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <img
-              src="/resume-sample-1.png"
+            <Image
+              src={sample1}
               alt="Resume Sample 1"
               className="rounded shadow"
             />
-            <img
-              src="/resume-sample-2.png"
+            <Image
+              src={sample2}
               alt="Resume Sample 2"
               className="rounded shadow"
             />
