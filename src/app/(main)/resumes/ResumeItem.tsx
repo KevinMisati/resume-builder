@@ -91,7 +91,7 @@ function MoreMenu({ resumeId,onPrintClick }: MoreMenuProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+            className="absolute right-0.5 top-0.5  transition-opacity group-hover:opacity-100"
           >
             <MoreVertical className="size-4" />
           </Button>
@@ -109,7 +109,7 @@ function MoreMenu({ resumeId,onPrintClick }: MoreMenuProps) {
             onClick={onPrintClick}
           >
             <Printer className="size-4" />
-            Print
+            Download
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
