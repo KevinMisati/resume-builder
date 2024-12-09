@@ -37,7 +37,7 @@ export default function Home() {
       <section className="px-8 py-16">
         <div className="container mx-auto text-center">
           <h2 className="mb-8 text-3xl font-bold">Why Choose Our Builder?</h2>
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col md:flex-row items-center justify-center">
             <div className="m-2 max-w-[450px] rounded bg-gray-800 p-6 shadow">
               <h3 className="mb-2 text-xl font-semibold text-white">
                 Easy to Use
