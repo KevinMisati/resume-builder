@@ -29,6 +29,16 @@ export default function ResumePreview({
         className,
       )}
       ref={containerRef}
+      style={{
+        fontFamily: "Arial, sans-serif",
+        color: "#333",
+        padding: "20px",
+        border: "1px solid #ddd",
+        borderRadius: "5px",
+        width: "800px" ,
+        margin: "0 auto",
+        overflow:"hidden",
+      }}
     >
       <div
         className={cn("space-y-6 p-6", !width && "invisible")}
@@ -145,7 +155,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
             color: colorHex,
           }}
         >
-          Professional profile
+          Professional summary
         </p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>

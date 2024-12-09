@@ -25,7 +25,8 @@ import { MoreVertical, Printer, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
 import { deleteResume } from "./actions";
-import {useReactToPrint} from "react-to-print"
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -33,16 +34,41 @@ interface ResumeItemProps {
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
 
-    const contentRef = useRef<HTMLDivElement>(null)
-    const reactToPrintFn = useReactToPrint({
-        contentRef,
-        documentTitle:resume.title || "Resume"
-    })
     const wasUpdated = resume.updatedAt !== resume.createdAt;
+
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    const handleDownload = async () => {
+      const element = contentRef.current;
+      
+      if (!element) {
+        console.error("Content reference is null");
+        return;
+      }
+
+      try {
+        const canvas = await html2canvas(element, { scale: 2 });
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("portrait", "mm", "a4");
+
+        // Calculate dimensions to fit the content in the PDF
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`${resume.title || "Resume"}.pdf`);
+      } catch (error) {
+        console.error("Failed to generate PDF:", error);
+      } 
+      finally{
+        //element.style.width = "auto";
+      }
+    };
+
 
 
   return (
-    <div className="w-full md:w-1/2 bg-gray-200 group relative rounded-lg border border-transparent bg-secondary p-3 transition-colors hover:border-border">
+    <div className="group relative w-full rounded-lg border border-transparent bg-gray-200 bg-secondary p-3 transition-colors hover:border-border md:w-1/2">
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}`}
@@ -71,7 +97,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
         </Link>
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
+      <MoreMenu resumeId={resume.id} onPrintClick={handleDownload} />
     </div>
   );
 }
