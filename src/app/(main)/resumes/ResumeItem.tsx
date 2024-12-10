@@ -41,31 +41,81 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
 
     const handleDownload = async () => {
       const element = contentRef.current;
-      
+
       if (!element) {
         console.error("Content reference is null");
         return;
       }
 
       try {
-        const canvas = await html2canvas(element, { scale: 2 });
-        const imgData = canvas.toDataURL("image/png");
+        const canvas = await html2canvas(element, {
+          scale: 2,
+          useCORS: true, // For cross-origin assets
+        });
+
         const pdf = new jsPDF("portrait", "mm", "a4");
-
-        // Calculate dimensions to fit the content in the PDF
         const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
 
-        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        const scaleFactor = pdfWidth / canvasWidth;
+        const totalHeight = canvasHeight * scaleFactor;
+
+        let currentHeight = 0;
+
+        while (currentHeight < totalHeight) {
+          const sliceHeight = Math.min(totalHeight - currentHeight, pdfHeight);
+
+          const sliceCanvas = document.createElement("canvas");
+          sliceCanvas.width = canvasWidth;
+          sliceCanvas.height = sliceHeight / scaleFactor;
+
+          const context = sliceCanvas.getContext("2d");
+          context.drawImage(
+            canvas,
+            0,
+            currentHeight / scaleFactor,
+            canvasWidth,
+            sliceCanvas.height,
+            0,
+            0,
+            canvasWidth,
+            sliceCanvas.height,
+          );
+
+          const imgData = sliceCanvas.toDataURL("image/png");
+
+          if (currentHeight === 0) {
+            pdf.addImage(
+              imgData,
+              "PNG",
+              0,
+              0,
+              pdfWidth,
+              (sliceCanvas.height * pdfWidth) / canvasWidth,
+            );
+          } else {
+            pdf.addPage();
+            pdf.addImage(
+              imgData,
+              "PNG",
+              0,
+              0,
+              pdfWidth,
+              (sliceCanvas.height * pdfWidth) / canvasWidth,
+            );
+          }
+
+          currentHeight += sliceHeight;
+        }
+
         pdf.save(`${resume.title || "Resume"}.pdf`);
       } catch (error) {
         console.error("Failed to generate PDF:", error);
-      } 
-      finally{
-        //element.style.width = "auto";
       }
     };
-
 
 
   return (
@@ -90,15 +140,15 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           href={`/editor?resumeId=${resume.id}`}
           className="inline-block w-full"
         >
+          <ResumePreview
+            resumeData={mapToResumeValues(resume)}
+            className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+          />
+
           <ResumePreviewDownLoad
             resumeData={mapToResumeValues(resume)}
             contentRef={contentRef}
-            className="absolute left-0 top-[1000%] overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
-          />
-          <ResumePreview
-            resumeData={mapToResumeValues(resume)}
-            /* contentRef={contentRef} */
-            className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+            className="left-0 shadow-sm transition-shadow group-hover:shadow-lg"
           />
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
         </Link>

@@ -52,7 +52,7 @@ export default function ResumePreview({
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
-        <SkillsSection resumeData={resumeData} />
+        <SkillsSection resumeData={resumeData} /> 
       </div>
     </div>
   );
@@ -286,12 +286,14 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
         >
           Skills
         </p>
-        <div className="flex break-inside-avoid flex-wrap gap-2">
+        <div className="break-inside-avoid flex flex-wrap gap-2">
           {skills.map((skill, index) => (
             <Badge
               key={index}
-              className="rounded-md bg-black text-white hover:bg-black"
+              className="break-inside-avoid rounded-md bg-black text-white hover:bg-black"
               style={{
+                pageBreakInside: "avoid",
+                padding: "0px 10px 11px 10px",
                 backgroundColor: colorHex,
                 borderRadius:
                   borderStyle === BorderStyles.SQUARE
