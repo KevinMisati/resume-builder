@@ -73,7 +73,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           sliceCanvas.height = sliceHeight / scaleFactor;
 
           const context = sliceCanvas.getContext("2d");
-          context.drawImage(
+          context?.drawImage(
             canvas,
             0,
             currentHeight / scaleFactor,
