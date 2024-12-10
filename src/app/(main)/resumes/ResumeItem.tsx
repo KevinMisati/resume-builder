@@ -27,6 +27,7 @@ import { useRef, useState, useTransition } from "react";
 import { deleteResume } from "./actions";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import ResumePreviewDownLoad from "@/components/ResumePreviewDownload";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -68,7 +69,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
 
 
   return (
-    <div className="group relative w-full rounded-lg border border-transparent bg-gray-200 bg-secondary p-3 transition-colors hover:border-border md:w-1/2">
+    <div className="group relative h-[100vh] w-full overflow-hidden rounded-lg border border-transparent bg-gray-200 bg-secondary p-3 transition-colors hover:border-border md:w-1/2">
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}`}
@@ -87,11 +88,16 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
         </Link>
         <Link
           href={`/editor?resumeId=${resume.id}`}
-          className="relative inline-block w-full"
+          className="inline-block w-full"
         >
-          <ResumePreview
+          <ResumePreviewDownLoad
             resumeData={mapToResumeValues(resume)}
             contentRef={contentRef}
+            className="absolute left-0 top-[1000%] overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+          />
+          <ResumePreview
+            resumeData={mapToResumeValues(resume)}
+            /* contentRef={contentRef} */
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
