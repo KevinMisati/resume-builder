@@ -21,7 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
-import { MoreVertical, Printer, Trash2 } from "lucide-react";
+import { Edit, MoreVertical, Printer, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
 import { deleteResume } from "./actions";
@@ -173,7 +173,7 @@ function MoreMenu({ resumeId,onPrintClick }: MoreMenuProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-0.5 top-0.5  transition-opacity group-hover:opacity-100"
+            className="absolute right-0.5 top-0.5 transition-opacity group-hover:opacity-100"
           >
             <MoreVertical className="size-4" />
           </Button>
@@ -185,6 +185,17 @@ function MoreMenu({ resumeId,onPrintClick }: MoreMenuProps) {
           >
             <Trash2 className="size-4" />
             Delete
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex items-center gap-2"
+          >
+            <Link
+              href={`/editor?resumeId=${resumeId}`}
+              className="flex items-center gap-2"
+            >
+              <Edit className="size-4" />
+              Edit
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex items-center gap-2"
