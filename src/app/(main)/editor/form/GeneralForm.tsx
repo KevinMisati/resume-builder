@@ -38,7 +38,7 @@ const GeneralForm = ({resumeData, setResumeData}:EditorFormProps) => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Project Name</FormLabel>
+                <FormLabel>Resume Name</FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="My cool resume" autoFocus />
                 </FormControl>
