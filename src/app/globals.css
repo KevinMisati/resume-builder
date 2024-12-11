@@ -86,3 +86,14 @@ body {
   margin: 0.6cm;
 }
 
+.dropdownContainer{
+  z-index: 10000, 
+}
+@media (max-width: 768px) {
+  /* Styles for screens smaller than 768px */
+  .dropdownContainer{
+    z-index: 10000;
+    position:relative;
+    left: 20px;
+  }
+}
