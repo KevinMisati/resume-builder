@@ -33,12 +33,16 @@ const Footer = ({currentStep,setCurrentStep,showSmResumePreview,setShowSmResumeP
           >
             Previous step
           </Button>
-          <Button
-            disabled={!nextStep}
-            onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
-          >
-            Next step
-          </Button>
+
+          {nextStep ? (
+            <Button onClick={() => setCurrentStep(nextStep)}>
+              Next step
+            </Button>
+          ) : (
+            <Button  asChild>
+              <Link href="/resumes">Complete</Link>
+            </Button>
+          )}
         </div>
         <Button
           variant='outline'
