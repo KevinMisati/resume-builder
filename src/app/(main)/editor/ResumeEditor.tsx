@@ -16,6 +16,7 @@ interface ResumeEditorProps {
   resumeToEdit:ResumeServerData | null
 }
 const ResumeEditor = ({ resumeToEdit }:ResumeEditorProps) => {
+  console.log(resumeToEdit,"hello resume edit")
   const searchParams = useSearchParams();
   const [resumeData, setResumeData] = useState<ResumeValues>(
     resumeToEdit ? mapToResumeValues(resumeToEdit) : {}

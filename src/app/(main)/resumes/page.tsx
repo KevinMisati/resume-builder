@@ -1,4 +1,4 @@
-'use client'
+
 import React from 'react'
 import { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import prisma from '@/lib/prisma'
 import { resumeDataInclude } from '@/lib/types'
-import ResumeItem from './ResumeItem'
+import ResumeItems from './ResumeItems'
 
 // export const metadata:Metadata = {
 //   title:"Your resumes"
@@ -19,10 +19,7 @@ const Page = () => {
   // if(!userId){
   //   return null
   // }
-  const resumesString = localStorage.getItem("resumeData")
-  const resumes = resumesString ? [JSON.parse(resumesString)] : []
-  const totalCount = resumes.length
-  console.log(resumes, "hello resumes")
+  
 
   return (
     <main className="mx-auto w-full max-w-7xl space-y-6 px-3 py-6">
@@ -32,18 +29,7 @@ const Page = () => {
           New resume
         </Link>
       </Button>
-      <div className='space-y-1'>
-        <h1 className='text-3xl font-bold'>Your resumes</h1>
-        <p>Total: {totalCount} </p>
-      </div>
-      <div className='flex items-center justify-center  w-full gap-3'>
-        {resumes.map(resume => (
-          <ResumeItem 
-            key={resume.id}
-            resume={resume}
-          />
-        ))}
-      </div> 
+      <ResumeItems />
     </main>
   );
 }

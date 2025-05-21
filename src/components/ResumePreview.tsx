@@ -1,3 +1,4 @@
+"use client";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
@@ -28,7 +29,7 @@ export default function ResumePreview({
         "aspect-[210/297] h-fit w-full bg-white text-black",
         className,
       )}
-      ref={containerRef}
+      ref={containerRef} 
       
     >
       <div
@@ -44,7 +45,7 @@ export default function ResumePreview({
         <WorkExperienceSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
         <SkillsSection resumeData={resumeData} />
-      </div>
+      </div> 
     </div>
   );
 }

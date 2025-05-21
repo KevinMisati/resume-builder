@@ -143,15 +143,15 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
-          />  
+          />   
 
-          <ResumePreviewDownLoad
+          {/* <ResumePreviewDownLoad
             resumeData={mapToResumeValues(resume)} 
             contentRef={contentRef}
             className="left-0 shadow-sm transition-shadow group-hover:shadow-lg" 
-          />  
+          />  */} 
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
-        </Link>
+        </Link> 
       </div>
       <MoreMenu resumeId={resume.id} onPrintClick={handleDownload} /> 
     </div>
