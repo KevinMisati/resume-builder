@@ -2,10 +2,8 @@
 
 import logo from "@/assets/logo.png";
 import ThemeToggle from "@/components/ThemeToggle";
-import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 
 export default function Navbar() {
@@ -28,18 +26,6 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <UserButton
-            appearance={{
-              baseTheme:theme === "dark" ? dark : undefined,
-              elements: {
-                avatarBox: {
-                  width: 35,
-                  height: 35,
-                },
-              },
-            }}
-          >
-          </UserButton>
         </div>
       </div>
     </header>

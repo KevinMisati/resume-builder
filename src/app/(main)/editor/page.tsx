@@ -3,7 +3,6 @@ import React from 'react'
 import { Metadata } from 'next'
 import ResumeEditor from './ResumeEditor'
 import prisma from '@/lib/prisma'
-import { auth } from '@clerk/nextjs/server'
 import { resumeDataInclude } from '@/lib/types'
 
 interface PageProps {
