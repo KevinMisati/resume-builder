@@ -133,27 +133,27 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           )}
           <p className="text-xs text-muted-foreground">
             {wasUpdated ? "Updated" : "Created"} on{" "}
-            {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
+            {resume.updatedAt ? formatDate(resume.updatedAt, "MMM d, yyyy h:mm a") : "N/A"} 
           </p>
         </Link>
         <Link
           href={`/editor?resumeId=${resume.id}`}
           className="inline-block w-full"
-        >
+        > 
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
-          />
+          />  
 
           <ResumePreviewDownLoad
-            resumeData={mapToResumeValues(resume)}
+            resumeData={mapToResumeValues(resume)} 
             contentRef={contentRef}
-            className="left-0 shadow-sm transition-shadow group-hover:shadow-lg"
-          />
+            className="left-0 shadow-sm transition-shadow group-hover:shadow-lg" 
+          />  
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
         </Link>
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={handleDownload} />
+      <MoreMenu resumeId={resume.id} onPrintClick={handleDownload} /> 
     </div>
   );
 }

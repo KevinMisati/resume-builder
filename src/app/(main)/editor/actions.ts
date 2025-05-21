@@ -7,6 +7,7 @@ import { del, put } from "@vercel/blob";
 import path from "path";
 
 export async function saveResume(values: ResumeValues) {
+  console.log(values,"hello values store")
   const { id } = values;
 
   console.log("received values", values);

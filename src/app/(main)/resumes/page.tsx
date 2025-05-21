@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
@@ -8,31 +9,21 @@ import prisma from '@/lib/prisma'
 import { resumeDataInclude } from '@/lib/types'
 import ResumeItem from './ResumeItem'
 
-export const metadata:Metadata = {
-  title:"Your resumes"
-}
+// export const metadata:Metadata = {
+//   title:"Your resumes"
+// }
 
-const Page = async() => {
-  const { userId } = await auth()
-  if(!userId){
-    return null
-  }
-  const [resumes,totalCount] = await Promise.all([
-    prisma.resume.findMany({
-    where: {
-      userId
-    },
-    orderBy: {
-      updatedAt:"desc"
-    },
-    include:resumeDataInclude
-  }),
-  prisma.resume.count({
-    where:{
-      userId
-    }
-  })
-  ]) 
+const Page = () => {
+  //const { userId } = await auth()
+  // console.log(userId,"hello userId")
+  // if(!userId){
+  //   return null
+  // }
+  const resumesString = localStorage.getItem("resumeData")
+  const resumes = resumesString ? [JSON.parse(resumesString)] : []
+  const totalCount = resumes.length
+  console.log(resumes, "hello resumes")
+
   return (
     <main className="mx-auto w-full max-w-7xl space-y-6 px-3 py-6">
       <Button asChild className="mx-auto flex w-fit gap-2">
@@ -52,7 +43,7 @@ const Page = async() => {
             resume={resume}
           />
         ))}
-      </div>
+      </div> 
     </main>
   );
 }

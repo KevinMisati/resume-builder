@@ -38,7 +38,7 @@ export default function ResumePreview({
         width: "800px",
         margin: "0 auto",
         overflow: "hidden",
-      }}
+      }} 
     >
       <div
         className={cn("space-y-6 p-6", !width && "invisible")}
@@ -53,7 +53,7 @@ export default function ResumePreview({
         <WorkExperienceSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
         <SkillsSection resumeData={resumeData} /> 
-      </div>
+      </div> 
     </div>
   );
 }
@@ -310,4 +310,4 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
       </div>
     </>
   );
-}
+} 

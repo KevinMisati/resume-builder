@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Metadata } from 'next'
 import ResumeEditor from './ResumeEditor'
@@ -10,22 +11,20 @@ interface PageProps {
 }
 
 
-export const metadata:Metadata = {
-    title:"Design your resume"
-}
+// export const metadata:Metadata = {
+//     title:"Design your resume"
+// }
 const Page = async ({searchParams}:PageProps) => {
-  const {resumeId} = await searchParams
+  //const {resumeId} = await searchParams
 
-  const { userId } = await auth()
-  if(!userId){
-    return null
-  }
+  // const { userId } = await auth()
+  // if(!userId){
+  //   return null
+  // }
+  const resumesString = localStorage.getItem("resumeData")
+  const resumes = resumesString ? [JSON.parse(resumesString)] : []
 
-  const resumeToEdit = resumeId
-  ? await prisma.resume.findUnique({
-    where:{id:resumeId,userId},
-    include:resumeDataInclude
-  }) : null
+  const resumeToEdit = resumes[0]
   return <ResumeEditor resumeToEdit ={resumeToEdit}/>;
 }
 
