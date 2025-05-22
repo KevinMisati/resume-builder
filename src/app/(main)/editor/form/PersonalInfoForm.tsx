@@ -28,6 +28,7 @@ export default function PersonalInfoForm({
       country: resumeData.country || "",
       phone: resumeData.phone || "",
       email: resumeData.email || "",
+      photo:resumeData.photo || "",
     },
   });
 
@@ -63,8 +64,15 @@ export default function PersonalInfoForm({
                       type="file"
                       accept="image/*"
                       onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        fieldValues.onChange(file);
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                          const base64Data = e.target.result;
+                          localStorage.setItem('uploadedFile', base64Data);
+                          fieldValues.onChange(base64Data);
+                        };
+                        reader.readAsDataURL(file);
                       }}
                       ref={photoInputRef}
                     />

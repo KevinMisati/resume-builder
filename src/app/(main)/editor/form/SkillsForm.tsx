@@ -15,9 +15,11 @@ const SkillsForm = ({resumeData,setResumeData}:EditorFormProps) => {
     })
 
     useEffect(() => {
+        console.log(form,"hello form here")
       const { unsubscribe } = form.watch(async (values) => {
         const isValid = await form.trigger();
         if (!isValid) return;
+        console.log(values,"hello form here skills")
         setResumeData({
           ...resumeData,
           skills: values.skills

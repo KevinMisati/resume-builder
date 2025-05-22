@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef} from "react";
 import { Badge } from "./ui/badge";
 
 interface ResumePreviewProps {
@@ -55,6 +55,7 @@ interface ResumeSectionProps {
 }
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
+ 
   const {
     photo,
     firstName,
@@ -67,21 +68,13 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     colorHex,
     borderStyle,
   } = resumeData;
-
-  const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
-
-  useEffect(() => {
-    const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
-    if (objectUrl) setPhotoSrc(objectUrl);
-    if (photo === null) setPhotoSrc("");
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [photo]);
+   console.log(photo,"hello photo check")
 
   return (
     <div className="flex items-center gap-6">
-      {photoSrc && (
+      {photo && (
         <Image
-          src={photoSrc}
+          src={photo}
           width={100}
           height={100}
           alt="Author photo"
