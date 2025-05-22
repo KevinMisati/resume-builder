@@ -1,4 +1,5 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useId} from 'react'
+import { useSearchParams } from 'next/navigation'
 import {useForm} from "react-hook-form"
 import { generalInfoSchema, GeneralInfoValues } from '@/lib/validation'
 import {zodResolver} from "@hookform/resolvers/zod"
@@ -7,15 +8,25 @@ import { Input } from '@/components/ui/input'
 import { EditorFormProps } from '@/lib/types'
 
 const GeneralForm = ({resumeData, setResumeData}:EditorFormProps) => {
+   const searchParams = useSearchParams();
+   const resumeDoesNotExist = !Boolean(resumeData.id)
+   
+    const newId = Math.floor(Math.random() * 100000) * Math.floor(Math.random() * 100000)
     const form = useForm<GeneralInfoValues>({
         resolver:zodResolver(generalInfoSchema),
         defaultValues:{
+            id:resumeData.id || `${newId}`,
             title: resumeData.title || "",
             description:resumeData.description || "",
         }
     })
 
     useEffect(() => {
+      if(resumeDoesNotExist) {
+        // const newSearchParams = new URLSearchParams(searchParams);
+        // newSearchParams.set("resumeId", `${newId}`)
+        // window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+      }
       const { unsubscribe } = form.watch(async (values) => {
         const isValid = await form.trigger();
         if (!isValid) return;

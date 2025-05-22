@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import useDebounce from "@/hooks/useDebounce";
 import { ResumeValues } from "@/lib/validation";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { saveResume } from "./actions";
-import { fileReplacer } from "@/lib/utils";
 
 export default function useAutoSaveResume(resumeData: ResumeValues) {
   const searchParams = useSearchParams();
+
+  const resumesString = localStorage.getItem("resumeData")
+  const resumes = resumesString ? JSON.parse(resumesString) : []
 
   const { toast } = useToast();
 
@@ -28,10 +28,25 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
   }, [debouncedResumeData]);
 
   useEffect(() => {
-    console.log(resumeData,"hello resumeData here")
-    setIsSaving(true);
-    localStorage.setItem("resumeData", JSON.stringify(resumeData));
-    setIsSaving(false)
+    if(resumeData.id){
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set("resumeId", `${resumeData.id}`)
+      window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+
+      setIsSaving(true);
+      const newResumes = resumes.length ? 
+        resumes.map(resume => {
+          if(resume.id === resumeData.id){
+            return resumeData
+          }
+          return resume
+        }):
+        [resumeData]
+      console.log(resumes,newResumes,resumeData,"hello resumes")
+      localStorage.setItem("resumeData", JSON.stringify(newResumes));
+      setIsSaving(false)
+    }
+    
   }, [resumeData]);
 
   return {

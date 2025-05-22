@@ -16,7 +16,6 @@ interface ResumeEditorProps {
   resumeToEdit:ResumeServerData | null
 }
 const ResumeEditor = ({ resumeToEdit }:ResumeEditorProps) => {
-  console.log(resumeToEdit,"hello resume edit")
   const searchParams = useSearchParams();
   const [resumeData, setResumeData] = useState<ResumeValues>(
     resumeToEdit ? mapToResumeValues(resumeToEdit) : {}
@@ -58,14 +57,14 @@ const ResumeEditor = ({ resumeToEdit }:ResumeEditorProps) => {
                 resumeData={resumeData}
                 setResumeData={setResumeData}
               />
-            )}
+            )} 
           </div>
           <div className="grow md:border-r" />
           <ResumePreviewSection
             resumeData={resumeData}
             setResumeData={setResumeData}
             className={cn(showSmResumePreview && "flex")}
-          />
+          /> 
         </div>
       </main>
       <Footer
@@ -74,7 +73,7 @@ const ResumeEditor = ({ resumeToEdit }:ResumeEditorProps) => {
         showSmResumePreview={showSmResumePreview}
         setShowSmResumePreview={setShowSmResumePreview}
         isSaving={isSaving}
-      />
+      /> 
     </div>
   );
 };

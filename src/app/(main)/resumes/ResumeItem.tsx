@@ -27,7 +27,6 @@ import { useRef, useState, useTransition } from "react";
 import { deleteResume } from "./actions";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import ResumePreviewDownLoad from "@/components/ResumePreviewDownload";
 
 interface ResumeItemProps {
   resume: ResumeServerData;

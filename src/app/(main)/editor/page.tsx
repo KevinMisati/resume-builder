@@ -1,29 +1,16 @@
 'use client'
 import React from 'react'
-import { Metadata } from 'next'
+import { useSearchParams } from 'next/navigation'
 import ResumeEditor from './ResumeEditor'
-import prisma from '@/lib/prisma'
-import { resumeDataInclude } from '@/lib/types'
 
-interface PageProps {
-  searchParams: Promise<{resumeId?:string}>
-}
-
-
-// export const metadata:Metadata = {
-//     title:"Design your resume"
-// }
-const Page = async ({searchParams}:PageProps) => {
-  //const {resumeId} = await searchParams
-
-  // const { userId } = await auth()
-  // if(!userId){
-  //   return null
-  // }
+const Page = () => {
   const resumesString = localStorage.getItem("resumeData")
-  const resumes = resumesString ? [JSON.parse(resumesString)] : []
+  const resumes = resumesString ? JSON.parse(resumesString) : []
+  const searchParms = useSearchParams()
+  const resumeId = searchParms.get('resumeId')
 
-  const resumeToEdit = resumes[0]
+  const resumeToEdit = resumes.filter(resume => resume.id == resumeId)[0]
+  console.log(resumes,resumeToEdit,"hello resume id")
   return <ResumeEditor resumeToEdit ={resumeToEdit}/>;
 }
 

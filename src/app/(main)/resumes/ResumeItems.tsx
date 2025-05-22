@@ -4,9 +4,8 @@ import ResumeItem from './ResumeItem'
 
 const Page = () => {
   const resumesString = localStorage.getItem("resumeData")
-  const resumes = resumesString ? [JSON.parse(resumesString)] : []
+  const resumes = resumesString ? JSON.parse(resumesString) : []
   const totalCount = resumes.length
-  console.log(resumes, "hello resumes")
 
   return (
     < >
