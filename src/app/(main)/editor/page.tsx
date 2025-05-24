@@ -1,16 +1,19 @@
-'use client'
-import React from 'react'
+"use client"
+import { useEffect, useState } from "react";
 import { useSearchParams } from 'next/navigation'
 import ResumeEditor from './ResumeEditor'
 
 const Page = () => {
-  const resumesString = localStorage.getItem("resumeData")
-  const resumes = resumesString ? JSON.parse(resumesString) : []
   const searchParms = useSearchParams()
   const resumeId = searchParms.get('resumeId')
+  const [resumeToEdit,setResumeToEdit] = useState(null)
 
-  const resumeToEdit = resumes.filter(resume => resume.id == resumeId)[0]
-  console.log(resumes,resumeToEdit,"hello resume id")
+  useEffect(() => {
+      const resumesString = localStorage.getItem("resumeData")
+      const resumes = resumesString ? JSON.parse(resumesString) : []
+      setResumeToEdit(resumes.filter(resume => resume.id == resumeId)[0])
+  }, []);
+  
   return <ResumeEditor resumeToEdit ={resumeToEdit}/>;
 }
 

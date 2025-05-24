@@ -1,17 +1,20 @@
 "use client"
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import ResumeItem from './ResumeItem'
 
 const Page = () => {
-  const resumesString = localStorage.getItem("resumeData")
-  const resumes = resumesString ? JSON.parse(resumesString) : []
-  const totalCount = resumes.length
+  const [resumes,setResumes] = useState([])
+  
+  useEffect(() => {
+      const resumesString = localStorage.getItem("resumeData")
+      setResumes(resumesString ? JSON.parse(resumesString) : [])
+  }, []);
 
   return (
     < >
         <div className='space-y-1'>
             <h1 className='text-3xl font-bold'>Your resumes</h1>
-            <p>Total: {totalCount} </p>
+            <p>Total: {resumes.length} </p>
         </div>
         <div className='flex items-center justify-center  w-full gap-3'>
             {resumes.map(resume => (
