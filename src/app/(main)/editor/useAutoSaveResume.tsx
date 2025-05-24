@@ -29,8 +29,10 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
           return resume
         }):
         [resumeData]
-      console.log(resumes,newResumes,resumeData,"hello resumes")
-      //localStorage.setItem("resumeData", JSON.stringify(newResumes));
+        debugger
+      console.log(newResumes,"hello resumes 123....")
+
+      localStorage.setItem("resumeData", JSON.stringify(newResumes));
       setIsSaving(false)
     } 
     
