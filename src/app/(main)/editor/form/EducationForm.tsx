@@ -56,7 +56,7 @@ const EducationForm = ({ resumeData, setResumeData }: EditorFormProps) => {
         educations: resumeData.educations || [],
       });
     }
-  }, [resumeData]);
+  }, []);
 
   useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {

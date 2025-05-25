@@ -53,7 +53,7 @@ export default function WorkExperienceForm({
           workExperiences: resumeData.workExperiences || [],
         });
       }
-    }, [resumeData]);
+    }, []);
 
   useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {

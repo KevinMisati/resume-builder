@@ -23,23 +23,23 @@ export const steps: {
     key: "personal-info",
   },
   {
+    title: "Summary",
+    component: SummaryForm,
+    key: "summary",
+  },
+  {
     title: "Work experience",
     component: WorkExperienceForm,
     key: "work-experience",
-  },
+  }, 
   {
     title: "Education",
     component: EducationForm,
     key: "education",
-  },
+  }, 
   {
     title: "Skills",
     component: SkillsForm,
     key: "skills",
-  },
-  {
-    title: "Summary",
-    component: SummaryForm,
-    key: "summary",
   },
 ];
