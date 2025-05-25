@@ -131,10 +131,10 @@ export default function ResumeItem({ resume,resumes }: ResumeItemProps) {
           {resume.description && (
             <p className="line-clamp-2 text-sm">{resume.description}</p>
           )}
-          <p className="text-xs text-muted-foreground">
+          {/* <p className="text-xs text-muted-foreground">
             {wasUpdated ? "Updated" : "Created"} on{" "}
             {resume.updatedAt ? formatDate(resume.updatedAt, "MMM d, yyyy h:mm a") : "N/A"} 
-          </p>
+          </p> */}
         </Link>
         <Link
           href={`/editor?resumeId=${resume.id}`}
