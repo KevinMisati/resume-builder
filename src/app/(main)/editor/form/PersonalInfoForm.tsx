@@ -96,7 +96,7 @@ export default function PersonalInfoForm({
                     variant="secondary"
                     type="button"
                     onClick={() => {
-                      fieldValues.onChange(null);
+                      fieldValues.onChange("");
                       if (photoInputRef.current) {
                         photoInputRef.current.value = "";
                       }
