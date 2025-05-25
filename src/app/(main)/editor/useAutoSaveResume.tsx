@@ -6,16 +6,15 @@ import { useEffect, useState } from "react";
 export default function useAutoSaveResume(resumeData: ResumeValues) {
   const searchParams = useSearchParams();
 
-  const resumesString = localStorage.getItem("resumeData")
-  const resumes = resumesString ? JSON.parse(resumesString) : []
   const [lastSavedData, setLastSavedData] = useState(
     structuredClone(resumeData),
   );
 
   const [isSaving, setIsSaving] = useState(false);
   useEffect(() => {
-    console.log(resumeData,"hello resume data")
-     if(resumeData.id){
+    const resumesString = localStorage.getItem("resumeData")
+    const resumes = resumesString ? JSON.parse(resumesString) : []
+     if(resumeData?.id){
       const newSearchParams = new URLSearchParams(searchParams);
       newSearchParams.set("resumeId", `${resumeData.id}`)
       window.history.pushState(null, "", `?${newSearchParams.toString()}`);
@@ -29,8 +28,6 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
           return resume
         }):
         [resumeData]
-        debugger
-      console.log(newResumes,"hello resumes 123....")
 
       localStorage.setItem("resumeData", JSON.stringify(newResumes));
       setIsSaving(false)

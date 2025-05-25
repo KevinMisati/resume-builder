@@ -1,6 +1,6 @@
 'use client'
 
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useSearchParams } from 'next/navigation'
 import { steps } from './steps'
 import BreadCrumbs from './BreadCrumbs'
@@ -33,6 +33,10 @@ const ResumeEditor = ({ resumeToEdit }:ResumeEditorProps) => {
   const FormComponent = steps.find(
     (step) => step.key == currentstep,
   )?.component;
+
+  useEffect(() => {
+    setResumeData(resumeToEdit ? mapToResumeValues(resumeToEdit) :{})
+  },[])
 
   return (
     <div className="flex grow flex-col">

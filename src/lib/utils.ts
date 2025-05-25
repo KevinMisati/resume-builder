@@ -19,7 +19,8 @@ export function fileReplacer(key: unknown, value: unknown) {
 }
 
 export function mapToResumeValues(data: ResumeServerData): ResumeValues {
-  return {
+  console.log(data,'hello maptoresume vals')
+  const values =  {
     id: data.id,
     title: data.title || undefined,
     description: data.description || undefined,
@@ -49,4 +50,6 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     colorHex: data.colorHex,
     summary: data.summary || undefined,
   };
+  console.log(data,values,'hello maptoresume vals')
+  return values
 }

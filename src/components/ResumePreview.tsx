@@ -68,7 +68,6 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     colorHex,
     borderStyle,
   } = resumeData;
-   console.log(photo,"hello photo check")
 
   return (
     <div className="flex items-center gap-6">
