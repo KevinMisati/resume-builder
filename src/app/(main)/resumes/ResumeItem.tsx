@@ -32,7 +32,7 @@ interface ResumeItemProps {
   resume: ResumeServerData;
 }
 
-export default function ResumeItem({ resume }: ResumeItemProps) {
+export default function ResumeItem({ resume,resumes }: ResumeItemProps) {
 
     const wasUpdated = resume.updatedAt !== resume.createdAt;
 
@@ -152,7 +152,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
         </Link> 
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={handleDownload} /> 
+      <MoreMenu resumeId={resume.id} onPrintClick={handleDownload} resumes={resumes} /> 
     </div>
   );
 }
@@ -162,7 +162,7 @@ interface MoreMenuProps {
   onPrintClick: () => void;
 }
 
-function MoreMenu({ resumeId,onPrintClick }: MoreMenuProps) {
+function MoreMenu({ resumeId,onPrintClick,resumes }: MoreMenuProps) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   return (
@@ -209,6 +209,7 @@ function MoreMenu({ resumeId,onPrintClick }: MoreMenuProps) {
         resumeId={resumeId}
         open={showDeleteConfirmation}
         onOpenChange={setShowDeleteConfirmation}
+        resumes={resumes}
       />
     </>
   );
@@ -224,24 +225,15 @@ function DeleteConfirmationDialog({
   resumeId,
   open,
   onOpenChange,
+  resumes
 }: DeleteConfirmationDialogProps) {
   const { toast } = useToast();
 
   const [isPending, startTransition] = useTransition();
 
   async function handleDelete() {
-    startTransition(async () => {
-      try {
-        await deleteResume(resumeId);
-        onOpenChange(false);
-      } catch (error) {
-        console.error(error);
-        toast({
-          variant: "destructive",
-          description: "Something went wrong. Please try again.",
-        });
-      }
-    });
+    let newResumes = resumes.filter(resume => resume.id !== resumeId)
+    localStorage.setItem("resumeData",newResumes)
   }
 
   return (
