@@ -85,7 +85,6 @@ export default function PersonalInfoForm({
                         const reader = new FileReader();
                         reader.onload = function (e) {
                           const base64Data = e.target.result;
-                          localStorage.setItem('uploadedFile', base64Data);
                           fieldValues.onChange(base64Data);
                         };
                         reader.readAsDataURL(file);

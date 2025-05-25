@@ -8,7 +8,22 @@ export const generalInfoSchema = z.object({
 export type GeneralInfoValues = z.infer<typeof generalInfoSchema>
 
 export const personalInfoSchema = z.object({
-    photo:optionalString,
+    photo: optionalString.refine((val) => {
+        if (!val) return true; // allow empty or undefined
+
+        const [prefix, base64] = val.split(",");
+        if (!prefix || !base64) return false;
+
+        // ✅ 1. Check that it's an image (jpeg, png, webp, etc.)
+        const isImage = /^data:image\/(jpeg|png|webp|jpg|svg\+xml);base64$/.test(prefix);
+        if (!isImage) return false;
+
+        // ✅ 2. Check decoded size
+        const sizeInBytes = (base64.length * 3) / 4;
+        return sizeInBytes <= 4.3 * 1024 * 1024
+      }, {
+        message: "Photo must be a JPEG, PNG, or WebP image and less than 4MB in size",
+    }),
     firstName:optionalString,
     lastName:optionalString,
     jobTitle:optionalString,
