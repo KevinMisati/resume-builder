@@ -1,3 +1,4 @@
+"usse client"
 import React,{useEffect} from 'react'
 import {useForm} from "react-hook-form"
 import { generalInfoSchema, GeneralInfoValues } from '@/lib/validation'
@@ -11,12 +12,20 @@ const GeneralForm = ({resumeData, setResumeData}:EditorFormProps) => {
     const form = useForm<GeneralInfoValues>({
         resolver:zodResolver(generalInfoSchema),
         defaultValues:{
-            id:resumeData.id || `${newId}`,
-            title: resumeData.title || "",
-            description:resumeData.description || "",
+            id:resumeData?.id || `${newId}`,
+            title: resumeData?.title || "",
+            description:resumeData?.description || "",
         }
     })
-
+    useEffect(() => {
+      if (resumeData) {
+        form.reset({
+          id: resumeData.id || `${newId}`,
+          title: resumeData.title || "",
+          description: resumeData.description || "",
+        });
+      }
+    }, [resumeData]);
     useEffect(() => {
       const { unsubscribe } = form.watch(async (values) => {
         const isValid = await form.trigger();

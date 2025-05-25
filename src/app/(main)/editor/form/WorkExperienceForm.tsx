@@ -48,6 +48,14 @@ export default function WorkExperienceForm({
   });
 
   useEffect(() => {
+      if (resumeData) {
+        form.reset({
+          workExperiences: resumeData.workExperiences || [],
+        });
+      }
+    }, [resumeData]);
+
+  useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
       if (!isValid) return;

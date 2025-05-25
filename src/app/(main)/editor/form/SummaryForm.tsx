@@ -13,6 +13,13 @@ const SummaryForm = ({resumeData,setResumeData}:EditorFormProps) => {
             summary:resumeData.summary || ""
         }
     })
+    useEffect(() => {
+      if (resumeData) {
+          form.reset({
+            summary:resumeData.summary || ""
+          });
+      }
+    }, [resumeData]);
 
     useEffect(() => {
       const { unsubscribe } = form.watch(async (values) => {

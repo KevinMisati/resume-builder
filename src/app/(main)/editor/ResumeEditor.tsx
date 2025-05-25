@@ -36,7 +36,7 @@ const ResumeEditor = ({ resumeToEdit }:ResumeEditorProps) => {
 
   useEffect(() => {
     setResumeData(resumeToEdit ? mapToResumeValues(resumeToEdit) :{})
-  },[])
+  },[resumeToEdit])
 
   return (
     <div className="flex grow flex-col">

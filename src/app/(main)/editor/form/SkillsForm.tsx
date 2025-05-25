@@ -15,6 +15,14 @@ const SkillsForm = ({resumeData,setResumeData}:EditorFormProps) => {
     })
 
     useEffect(() => {
+        if (resumeData) {
+            form.reset({
+                skills:resumeData.skills || []    
+            });
+        }
+    }, [resumeData]);
+
+    useEffect(() => {
       const { unsubscribe } = form.watch(async (values) => {
         const isValid = await form.trigger();
         if (!isValid) return;

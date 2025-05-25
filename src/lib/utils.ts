@@ -50,6 +50,6 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     colorHex: data.colorHex,
     summary: data.summary || undefined,
   };
-  console.log(data,values,'hello maptoresume vals')
+  
   return values
 }

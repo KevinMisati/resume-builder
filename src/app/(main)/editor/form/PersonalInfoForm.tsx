@@ -34,6 +34,21 @@ export default function PersonalInfoForm({
   });
 
   useEffect(() => {
+    if (resumeData) {
+      form.reset({
+        firstName: resumeData.firstName || "",
+        lastName: resumeData.lastName || "",
+        jobTitle: resumeData.jobTitle || "",
+        city: resumeData.city || "",
+        country: resumeData.country || "",
+        phone: resumeData.phone || "",
+        email: resumeData.email || "",
+        photo:resumeData.photo || "",
+      });
+    }
+  }, [resumeData]);
+
+  useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
       if (!isValid) return;
