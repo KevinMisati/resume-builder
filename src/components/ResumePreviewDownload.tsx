@@ -38,6 +38,7 @@ export default function ResumePreview({
         width: "800px",
         margin: "0 auto",
         overflow: "hidden",
+        opacity:"0",
       }} 
     >
       <div
