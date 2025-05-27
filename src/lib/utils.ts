@@ -19,7 +19,6 @@ export function fileReplacer(key: unknown, value: unknown) {
 }
 
 export function mapToResumeValues(data: ResumeServerData): ResumeValues {
-  console.log(data,'hello maptoresume vals')
   const values =  {
     id: data.id,
     title: data.title || undefined,

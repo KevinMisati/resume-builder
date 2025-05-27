@@ -24,14 +24,21 @@ const SkillsForm = ({resumeData,setResumeData}:EditorFormProps) => {
 
     useEffect(() => {
       const { unsubscribe } = form.watch(async (values) => {
-        const isValid = await form.trigger();
-        if (!isValid) return;
-        setResumeData({
-          ...resumeData,
-          skills: values.skills
+        
+        
+        // const isValid = await form.trigger();
+        // if (!isValid) return;
+
+        const newSkills = values?.skills?.split(",") 
             ?.filter((skill) => skill !== undefined)
             .map((skill) => skill.trim())
-            .filter(skill => skill !== "") || []
+            //.filter(skill => skill !== "") || [] 
+        
+        console.log(newSkills,"hello skills")
+        
+        setResumeData({
+          ...resumeData,
+          skills: newSkills
         });
       });
       return unsubscribe;
@@ -59,7 +66,8 @@ const SkillsForm = ({resumeData,setResumeData}:EditorFormProps) => {
                                 placeholder='e.g React.js, Node.js, graphic design, ...' 
                                 onChange={
                                     (e) => {
-                                        const skills = e.target.value.split(",")
+                                        const skills = e.target.value//.split(",")
+                                        
                                         field.onChange(skills)
                                     }
                                 }
