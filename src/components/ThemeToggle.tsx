@@ -13,7 +13,6 @@ const ThemeToggle = () => {
     <div
       style={{
         zIndex: "10000",
-        background: "green !important",
       }}
       className="relative"
     >
