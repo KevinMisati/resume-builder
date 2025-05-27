@@ -288,7 +288,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
           Skills
         </p>
         <div className="break-inside-avoid flex flex-wrap gap-2">
-          {skills.map((skill, index) => (
+          {skills.filter(skill => skill).map((skill, index) => (
             <Badge
               key={index}
               className="break-inside-avoid rounded-md bg-black text-white hover:bg-black"
