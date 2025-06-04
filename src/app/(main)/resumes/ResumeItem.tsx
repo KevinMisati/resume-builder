@@ -219,6 +219,7 @@ function MoreMenu({ resumeId,onPrintClick,resumes }: MoreMenuProps) {
 interface DeleteConfirmationDialogProps {
   resumeId: string;
   open: boolean;
+  resumes:[],
   onOpenChange: (open: boolean) => void;
 }
 
@@ -233,8 +234,9 @@ function DeleteConfirmationDialog({
   const [isPending, startTransition] = useTransition();
 
   async function handleDelete() {
-    let newResumes = resumes.filter(resume => resume.id !== resumeId)
+    const newResumes = resumes.filter(resume => resume?.id !== resumeId)
     localStorage.setItem("resumeData",newResumes)
+    window.location.reload()
   }
 
   return (
